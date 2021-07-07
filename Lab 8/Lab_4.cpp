@@ -1,8 +1,12 @@
-#include <vector>
-#include <queue>
+#include <iostream>
 #include <fstream>
+#include <vector>
  
 using namespace std;
+ 
+vector <vector<int>> Graph;
+vector<int> Comp;
+int CountComp = 0;
  
 struct Pair
 {
@@ -10,56 +14,53 @@ struct Pair
     int second;
 };
  
- 
-void BFS(const vector < vector < int > >& g, vector < int >& d) 
+void SearchComp(int NumVertex) 
 {
-    vector < char > used(g.size(), false);
-    queue < int > q;
-    q.push(0);
-    used[0] = true;
- 
-    while (!q.empty()) 
-    {   
-        int curr_v = q.front();
-        q.pop();
-        for (int i = 0; i < g[curr_v].size(); i++) 
-        {
-            int neig_curr_v = g[curr_v][i];
-            if (!used[neig_curr_v]) 
-            {
-                used[neig_curr_v] = true;
-                q.push(neig_curr_v);
-                d[neig_curr_v] = d[curr_v] + 1;
-            }
-        }
+    if (Comp[NumVertex] == 0) 
+    {
+        Comp[NumVertex] = CountComp;
+        for (int i = 0; i < Graph[NumVertex].size(); i++) 
+            SearchComp(Graph[NumVertex][i]);
     }
 }
  
-int main() 
+int main()
 {
-    ifstream cin("pathbge1.in");
-    ofstream cout("pathbge1.out");
- 
-    int CountVertex, CountEdge;
+    ifstream cin("components.in");
+    ofstream cout("components.out");
+    int CountVertex = 0;
+    int CountEdge = 0;
     cin >> CountVertex >> CountEdge;
  
-    vector < vector < int > > graph(CountVertex);
-    vector < int > distance(CountVertex);
+    Comp.resize(CountVertex+1);
+    Graph.resize(CountVertex+1);
  
-    for (int i = 0; i < CountEdge; i++)
+    Pair temp;
+ 
+    for (int i = 0; i < CountEdge; i++) 
     {
-        Pair temp;
         cin >> temp.first >> temp.second;
-        temp.first--; temp.second--;
-        graph[temp.first].push_back(temp.second);
-        graph[temp.second].push_back(temp.first);
+        Graph[temp.first].push_back(temp.second);
+        Graph[temp.second].push_back(temp.first);
     }
  
-    BFS(graph, distance);
+    for (int i = 1; i < CountVertex+1; i++) 
+    {
+        if (Comp[i] == 0) 
+        {
+            CountComp++;
+            SearchComp(i);
+        }
+    }
  
-    for (int i = 0; i < CountVertex; i++)
-        cout << distance[i] << ' ';
+    cout << CountComp << endl;
  
+    for (int i = 1; i < CountVertex+1; i++) 
+    {
+        cout << Comp[i] << ' ';
+    }
+         
     cin.close();
     cout.close();
+    return 0;
 }
