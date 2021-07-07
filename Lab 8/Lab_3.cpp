@@ -4,62 +4,54 @@
  
 using namespace std;
  
-vector <vector<int>> Graph;
-vector<int> Comp;
-int CountComp = 0;
- 
 struct Pair
 {
     int first;
     int second;
 };
  
-void SearchComp(int NumVertex) 
-{
-    if (Comp[NumVertex] == 0) 
-    {
-        Comp[NumVertex] = CountComp;
-        for (int i = 0; i < Graph[NumVertex].size(); i++) 
-            SearchComp(Graph[NumVertex][i]);
-    }
-}
- 
 int main()
 {
-    ifstream cin("components.in");
-    ofstream cout("components.out");
+    ifstream cin("input.txt");
+    ofstream cout("output.txt");
+ 
     int CountVertex = 0;
     int CountEdge = 0;
     cin >> CountVertex >> CountEdge;
+    vector<struct Pair> Graph;
+    Graph.resize(CountEdge);
+    for (int i = 0; i < CountEdge; i++)
+        cin >> Graph[i].first >> Graph[i].second;
  
-    Comp.resize(CountVertex+1);
-    Graph.resize(CountVertex+1);
+    vector<vector<int>> AdjacencyMatrix;
+    AdjacencyMatrix.resize(CountVertex);
  
-    Pair temp;
- 
-    for (int i = 0; i < CountEdge; i++) 
+    for (int i = 0; i < CountVertex; i++)
     {
-        cin >> temp.first >> temp.second;
-        Graph[temp.first].push_back(temp.second);
-        Graph[temp.second].push_back(temp.first);
+        AdjacencyMatrix[i].resize(CountVertex);
+        for (int j = 0; j < CountVertex; j++)
+            AdjacencyMatrix[i][j] = 0;
     }
  
-    for (int i = 1; i < CountVertex+1; i++) 
-    {
-        if (Comp[i] == 0) 
-        {
-            CountComp++;
-            SearchComp(i);
-        }
-    }
  
-    cout << CountComp << endl;
+    for (int i = 0; i < CountEdge; i++)
+        AdjacencyMatrix[Graph[i].first - 1][Graph[i].second - 1]++;
  
-    for (int i = 1; i < CountVertex+1; i++) 
-    {
-        cout << Comp[i] << ' ';
-    }
-         
+    for (int i = 0; i < CountVertex; i++)
+        for (int j = 0; j < CountVertex; j++)
+            if (AdjacencyMatrix[i][j] != 0)
+                if (AdjacencyMatrix[j][i] == 1 && i != j)
+                {
+                    cout << "YES" << endl;
+                    return 0;
+                }
+                else
+                    if (AdjacencyMatrix[i][j] > 1)
+                    {
+                        cout << "YES" << endl;
+                        return 0;
+                    }
+    cout << "NO" << endl;
     cin.close();
     cout.close();
     return 0;
