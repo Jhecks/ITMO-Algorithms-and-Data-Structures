@@ -27,7 +27,8 @@
   * [Очередь](https://github.com/Jhecks/ITMO-Algorithms-and-Data-Structures/blob/main/Lab%204/Lab_2.cpp)
   * [Правильная скобочная последовательность](https://github.com/Jhecks/ITMO-Algorithms-and-Data-Structures/blob/main/Lab%204/Lab_3.cpp)
   * [Постфиксная запись](https://github.com/Jhecks/ITMO-Algorithms-and-Data-Structures/blob/main/Lab%204/Lab_4.cpp)
-  * [Приоритетная очередь](https://github.com/Jhecks/ITMO-Algorithms-and-Data-Structures/blob/main/Lab%204/Lab_5.cpp)
+  * [Двоичный поиск](https://github.com/Jhecks/ITMO-Algorithms-and-Data-Structures/blob/main/Lab%204/Lab_5.cpp)
+  * [Гирлянда](https://github.com/Jhecks/ITMO-Algorithms-and-Data-Structures/blob/main/Lab%204/Lab_6.cpp)
 
 * [Lab 5. Двоичное дерево поиска. Интерпретатор языка Quack.](https://github.com/Jhecks/ITMO-Algorithms-and-Data-Structures/tree/main/Lab%205) - [Problems](https://github.com/Jhecks/ITMO-Algorithms-and-Data-Structures/blob/main/Lab%205/problems5.pdf)
   * [Высота дерева](https://github.com/Jhecks/ITMO-Algorithms-and-Data-Structures/blob/main/Lab%205/Lab_1.cpp)
